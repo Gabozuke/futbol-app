@@ -1,0 +1,94 @@
+.login-body {
+  background-image: url('https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+.login-container {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 900px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  text-align: center;
+  margin: 0 auto;
+}
+.login-container input, .login-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  resize: none;
+}
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #00c853;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+.login-container button:hover {
+  background-color: #00b44e;
+}
+
+
+/* 💡 Fuente moderna (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body, input, button, textarea {
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 🌙 Modo oscuro */
+body.dark-mode {
+  background-color: #0b0b0b;
+  color: white;
+}
+
+.dark-mode .login-container {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.toggle-mode {
+  margin: 10px 0;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Animaciones suaves */
+input, textarea, button {
+  transition: all 0.3s ease;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+table img {
+  max-width: 60px;
+  border-radius: 50%;
+  display: block;
+  margin: auto;
+}

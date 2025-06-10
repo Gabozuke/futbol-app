@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Jugadores</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-container">
+    
+    <h1>Jugadores Registrados</h1>
+        <p id="contador-jugadores" style="color:white; margin-bottom: 10px;"></p>
+    <button onclick="exportarJSON()">📁 Exportar JSON</button>
+    
+    <input type="text" id="filtro-posicion" placeholder="Filtrar por posición">
+    <input type="text" id="filtro-disponibilidad" placeholder="Filtrar por disponibilidad">
+    <button onclick="filtrar()">Filtrar</button>
+    <table border="1" style="width:100%; margin-top: 10px; color:white;">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Posición</th>
+          <th>Habilidades</th>
+          <th>Disponibilidad</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-jugadores"></tbody>
+    </table>
+    <button onclick="window.location.href='perfil.html'">Volver al perfil</button>
+  </div>
+  <script src="js/jugadores.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>FútbolApp - Inicio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <h1>Bienvenido a FútbolApp</h1>
+    <p>Una aplicación simple para registrar y administrar jugadores.</p>
+    <button onclick="location.href='register.html'">Registrarse</button>
+    <button onclick="location.href='login.html'">Iniciar Sesión</button>
+    <button onclick="location.href='jugadores.html'">Ver Jugadores</button>
+    <button onclick="exportar()">Exportar jugadores a JSON</button>
+    <button onclick="resetear()">Eliminar todos los jugadores</button>
+  </div>
+
+  <script>
+    function exportar() {
+      const datos = localStorage.getItem('users') || '{}';
+      const blob = new Blob([datos], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "jugadores.json";
+      a.click();
+    }
+
+    function resetear() {
+      if (confirm("¿Seguro que quieres borrar todos los jugadores? Esta acción no se puede deshacer.")) {
+        localStorage.removeItem('users');
+        localStorage.removeItem('loggedInUser');
+        alert("Todos los jugadores han sido eliminados.");
+      }
+    }
+  </script>
+</body>
+</html>

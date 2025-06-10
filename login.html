@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <button class="toggle-mode" onclick="toggleTheme()" style="margin-bottom: 10px;">🌗 Modo Claro / Oscuro</button>
+    <h1>Iniciar Sesión</h1>
+    <form id="login-form">
+      <input type="email" id="email-login" placeholder="Correo electrónico" required><br>
+      <input type="password" id="password-login" placeholder="Contraseña" required><br>
+      <button type="submit">Entrar</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+  </div>
+  <script src="js/auth-local.js"></script>
+<script src="js/theme.js"></script>
+</body>
+</html>
