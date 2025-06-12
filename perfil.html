@@ -2,24 +2,69 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Perfil</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil del Jugador | FútbolApp</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login-body">
-  <div class="login-container">
-    <h1>Perfil</h1>
-    <form id="perfil-form">
-      <input type="text" id="nombre" placeholder="Nombre completo" required><br>
-      <input type="text" id="posicion" placeholder="Posición" required><br>
-      <textarea id="habilidades" placeholder="Habilidades" required></textarea><br>
-      <input type="text" id="disponibilidad" placeholder="Disponibilidad" required><br>
-      <input type="file" id="imagen" accept="image/*"><br>
-      <img id="preview" src="" alt="Tu imagen" width="100" style="margin-top:10px;"><br>
-      <button type="submit">Guardar</button>
+<body>
+  <div class="profile-container">
+    <!-- Header con logo y botón de volver -->
+    <header class="profile-header">
+      <button onclick="window.location.href='jugadores.html'" class="btn-back">⬅️ Volver</button>
+      <img src="images/futbolapp-logo.png" alt="Logo FútbolApp" class="logo">
+      <h1>👤 Perfil del Jugador</h1>
+    </header>
+
+    <!-- Sección de foto de perfil -->
+    <div class="profile-picture">
+      <div class="avatar-container">
+        <img id="preview" src="images/default-avatar.jpg" alt="Foto de perfil">
+        <label for="imagen" class="upload-label">
+          <span class="upload-icon">📤</span> Cambiar foto
+        </label>
+        <input type="file" id="imagen" accept="image/*">
+      </div>
+    </div>
+
+    <!-- Formulario de perfil -->
+    <form id="perfil-form" class="profile-form">
+      <div class="form-group">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" value="Luis Gabriel" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="posicion">Posición</label>
+          <select id="posicion" required>
+            <option value="Delantero" selected>Delantero</option>
+            <option value="Mediocampista">Mediocampista</option>
+            <option value="Defensa">Defensa</option>
+            <option value="Portero">Portero</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="disponibilidad">Disponibilidad</label>
+          <select id="disponibilidad" required>
+            <option value="Entre semana" selected>Entre semana</option>
+            <option value="Fines de semana">Fines de semana</option>
+            <option value="Ambos">Ambos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="habilidades">Habilidades destacadas</label>
+        <textarea id="habilidades" rows="3" required>Velocidad y fuerza de remate</textarea>
+      </div>
+
+      <button type="submit" class="btn-save">💾 Guardar y ver jugadores</button>
     </form>
-    <button id="logout-btn">Cerrar sesión</button>
+
+    <button id="logout-btn" class="btn-logout">🚪 Cerrar sesión</button>
   </div>
-  <script src="js/perfil-local.js"></script>
-<script src="js/theme.js"></script>
+
+  <script src="js/perfil.js"></script>
 </body>
 </html>

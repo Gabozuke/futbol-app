@@ -1,22 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Registro</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login-body">
+<body>
   <div class="login-container">
-    <h1>Registro</h1>
+    <img src="images/futbolapp-logo.png" alt="Logo FútbolApp" class="logo-app">
+    <h1>📝 Registro</h1>
     <form id="register-form">
-      <input type="text" id="nombre" placeholder="Nombre completo" required><br>
-      <input type="email" id="email" placeholder="Correo electrónico" required><br>
-      <input type="password" id="password" placeholder="Contraseña" required><br>
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña (mínimo 6 caracteres)" required>
       <button type="submit">Registrarse</button>
     </form>
-    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+    <div class="enlace-container">
+      <p class="enlace">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+      <button onclick="location.href='index.html'" class="btn-back">🏠 Volver al Inicio</button>
+    </div>
   </div>
-  <script src="js/auth-local.js"></script>
-<script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>

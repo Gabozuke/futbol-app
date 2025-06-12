@@ -2,38 +2,38 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FútbolApp - Inicio</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login-body">
+<body>
   <div class="login-container">
-    <h1>Bienvenido a FútbolApp</h1>
-    <p>Una aplicación simple para registrar y administrar jugadores.</p>
-    <button onclick="location.href='register.html'">Registrarse</button>
-    <button onclick="location.href='login.html'">Iniciar Sesión</button>
-    <button onclick="location.href='jugadores.html'">Ver Jugadores</button>
-    <button onclick="exportar()">Exportar jugadores a JSON</button>
-    <button onclick="resetear()">Eliminar todos los jugadores</button>
+    <img src="images/futbolapp-logo.png" alt="Logo FútbolApp" class="logo-app">
+    <h1>⚽ Bienvenido a <span style="color: #00c3ff;">FútbolApp</span></h1>
+    <p class="subtitulo">Registra y administra jugadores de forma sencilla.</p>
+
+    <button onclick="location.href='register.html'">📝 Registrarse</button>
+    <button onclick="location.href='login.html'">🔐 Iniciar Sesión</button>
+    <button onclick="location.href='jugadores.html'">📋 Ver Jugadores</button>
+    <button class="btn-theme" onclick="toggleTheme()">🌓 Cambiar tema</button>
   </div>
 
   <script>
-    function exportar() {
-      const datos = localStorage.getItem('users') || '{}';
-      const blob = new Blob([datos], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = "jugadores.json";
-      a.click();
+    // Función para cambiar el tema
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      // Guardar preferencia en localStorage
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
     }
 
-    function resetear() {
-      if (confirm("¿Seguro que quieres borrar todos los jugadores? Esta acción no se puede deshacer.")) {
-        localStorage.removeItem('users');
-        localStorage.removeItem('loggedInUser');
-        alert("Todos los jugadores han sido eliminados.");
+    // Verificar preferencia al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkMode = localStorage.getItem('darkMode') === 'true';
+      if (darkMode) {
+        document.body.classList.add('dark-mode');
       }
-    }
+    });
   </script>
 </body>
 </html>

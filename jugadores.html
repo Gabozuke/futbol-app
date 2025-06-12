@@ -2,36 +2,66 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Jugadores</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jugadores | FútbolApp</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login-body">
-  <div class="login-container">
-    
-    <h1>Jugadores Registrados</h1>
-        <p id="contador-jugadores" style="color:white; margin-bottom: 10px;"></p>
-    <button onclick="exportarJSON()">📁 Exportar JSON</button>
-    
-    <input type="text" id="filtro-posicion" placeholder="Filtrar por posición">
-    <input type="text" id="filtro-disponibilidad" placeholder="Filtrar por disponibilidad">
-    <button onclick="filtrar()">Filtrar</button>
-    <table border="1" style="width:100%; margin-top: 10px; color:white;">
-      <thead>
-        <tr>
-          <th>Foto</th>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Posición</th>
-          <th>Habilidades</th>
-          <th>Disponibilidad</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody id="tabla-jugadores"></tbody>
-    </table>
-    <button onclick="window.location.href='perfil.html'">Volver al perfil</button>
+<body>
+  <div class="players-container">
+    <header class="players-header">
+      <img src="images/futbolapp-logo.png" alt="Logo FútbolApp" class="logo">
+      <h1>📋 Jugadores Registrados</h1>
+    </header>
+
+    <div class="players-controls">
+      <div class="controls-left">
+        <button class="btn-theme" onclick="toggleTheme()">🌓 Cambiar tema</button>
+        <button class="btn-export" onclick="exportarJSON()">📤 Exportar JSON</button>
+        <button onclick="location.href='index.html'" class="btn-back">🏠 Volver al Inicio</button>
+      </div>
+      <button class="btn-profile" onclick="window.location.href='perfil.html'">👤 Mi perfil</button>
+    </div>
+
+    <div class="players-filters">
+      <input type="text" id="filtro-nombre" placeholder="Buscar por nombre..." class="search-input">
+      <select id="filtro-posicion" class="filter-select">
+        <option value="">Todas las posiciones</option>
+        <option value="Delantero">Delantero</option>
+        <option value="Mediocampista">Mediocampista</option>
+        <option value="Defensa">Defensa</option>
+        <option value="Portero">Portero</option>
+      </select>
+      <button onclick="filtrar()" class="btn-filter">🔍 Filtrar</button>
+    </div>
+
+    <div class="players-counter" id="contador-jugadores">Total: 0 jugadores</div>
+
+    <div class="players-table-container">
+      <table class="players-table">
+        <thead>
+          <tr>
+            <th width="15%">Foto</th>
+            <th width="20%">Nombre</th>
+            <th width="15%">Posición</th>
+            <th width="30%">Habilidades</th>
+            <th width="10%">Disponibilidad</th>
+            <th width="10%">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-jugadores">
+          <!-- Las filas se generarán dinámicamente con JavaScript -->
+        </tbody>
+      </table>
+    </div>
   </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+    }
+  </script>
   <script src="js/jugadores.js"></script>
-<script src="js/theme.js"></script>
 </body>
 </html>

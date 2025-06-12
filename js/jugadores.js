@@ -1,96 +1,107 @@
-function mostrarJugadores(filtroPos = '', filtroDisp = '') {
-  const tabla = document.getElementById("tabla-jugadores");
-  tabla.innerHTML = "";
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
-  for (let email in users) {
-    const user = users[email];
-    if (filtroPos && !user.posicion?.toLowerCase().includes(filtroPos.toLowerCase())) continue;
-    if (filtroDisp && !user.disponibilidad?.toLowerCase().includes(filtroDisp.toLowerCase())) continue;
-
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td><img src="${user.imagen || ''}" width="60" style="border-radius:50%;"></td>
-      <td>${user.nombre || ''}</td>
-      <td>${user.email}</td>
-      <td>${user.posicion || ''}</td>
-      <td>${user.habilidades || ''}</td>
-      <td>${user.disponibilidad || ''}</td>
-      <td><button onclick="eliminarUsuario('${email}')">Eliminar</button></td>
-    `;
-    tabla.appendChild(row);
+document.addEventListener('DOMContentLoaded', function() {
+  // Verificar tema oscuro
+  const darkMode = localStorage.getItem('darkMode') === 'true';
+  if (darkMode) {
+    document.body.classList.add('dark-mode');
   }
-}
 
-function filtrar() {
-  const pos = document.getElementById("filtro-posicion").value;
-  const disp = document.getElementById("filtro-disponibilidad").value;
-  mostrarJugadores(pos, disp);
-}
-
-function eliminarUsuario(email) {
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
-  if (confirm(`¿Estás seguro de eliminar al usuario: ${email}?`)) {
-    delete users[email];
-    localStorage.setItem('users', JSON.stringify(users));
-    mostrarJugadores();
+  // Cargar jugadores
+  let jugadores = JSON.parse(localStorage.getItem('jugadores')) || [];
+  
+  if (jugadores.length === 0) {
+    jugadores = [
+      {
+        nombre: "Luis Gabriel",
+        posicion: "Delantero",
+        habilidades: "Velocidad y fuerza de remate",
+        disponibilidad: "Entre semana",
+        foto: "images/default-avatar.jpg"
+      },
+      {
+        nombre: "María Rodríguez",
+        posicion: "Mediocampista",
+        habilidades: "Visión de juego y pases precisos",
+        disponibilidad: "Fines de semana",
+        foto: "images/default-avatar.jpg"
+      },
+      {
+        nombre: "Carlos Sánchez",
+        posicion: "Defensa",
+        habilidades: "Fuerza y marcaje estrecho",
+        disponibilidad: "Ambos",
+        foto: "images/default-avatar.jpg"
+      }
+    ];
+    localStorage.setItem('jugadores', JSON.stringify(jugadores));
   }
-}
 
-document.addEventListener("DOMContentLoaded", () => {
-  mostrarJugadores();
+  actualizarContador(jugadores.length);
+  mostrarJugadores(jugadores);
+
+  function mostrarJugadores(jugadores) {
+    const tabla = document.getElementById('tabla-jugadores');
+    tabla.innerHTML = '';
+
+    jugadores.forEach((jugador, index) => {
+      const fila = document.createElement('tr');
+      const imagenSrc = jugador.foto || 'images/default-avatar.jpg';
+      
+      fila.innerHTML = `
+        <td><img src="${imagenSrc}" alt="${jugador.nombre}" class="player-avatar" onerror="this.src='images/default-avatar.jpg'"></td>
+        <td>${jugador.nombre}</td>
+        <td>${jugador.posicion}</td>
+        <td>${jugador.habilidades}</td>
+        <td>${jugador.disponibilidad}</td>
+        <td><button class="btn-delete" data-index="${index}">🗑️</button></td>
+      `;
+      
+      tabla.appendChild(fila);
+    });
+
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const index = this.getAttribute('data-index');
+        eliminarJugador(index);
+      });
+    });
+  }
+
+  function actualizarContador(total) {
+    document.getElementById('contador-jugadores').textContent = `Total: ${total} jugador${total !== 1 ? 'es' : ''}`;
+  }
+
+  function eliminarJugador(index) {
+    const jugadores = JSON.parse(localStorage.getItem('jugadores'));
+    jugadores.splice(index, 1);
+    localStorage.setItem('jugadores', JSON.stringify(jugadores));
+    mostrarJugadores(jugadores);
+    actualizarContador(jugadores.length);
+  }
+
+  window.filtrar = function() {
+    const nombre = document.getElementById('filtro-nombre').value.toLowerCase();
+    const posicion = document.getElementById('filtro-posicion').value;
+
+    const jugadores = JSON.parse(localStorage.getItem('jugadores'));
+    const jugadoresFiltrados = jugadores.filter(jugador => {
+      return (nombre === '' || jugador.nombre.toLowerCase().includes(nombre)) &&
+             (posicion === '' || jugador.posicion === posicion);
+    });
+
+    mostrarJugadores(jugadoresFiltrados);
+    actualizarContador(jugadoresFiltrados.length);
+  };
+
+  window.exportarJSON = function() {
+    const jugadores = JSON.parse(localStorage.getItem('jugadores'));
+    const dataStr = JSON.stringify(jugadores, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    const exportFileDefaultName = 'jugadores.json';
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+  };
 });
-
-function exportarJSON() {
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
-  const datos = Object.values(users);
-  const blob = new Blob([JSON.stringify(datos, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'jugadores.json';
-  a.click();
-}
-
-function toggleTheme() {
-  const dark = document.body.classList.toggle("dark-mode");
-  localStorage.setItem("modoOscuro", dark ? "1" : "0");
-}
-
-function aplicarTema() {
-  const modo = localStorage.getItem("modoOscuro");
-  if (modo === "1") document.body.classList.add("dark-mode");
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  aplicarTema();
-  mostrarJugadores();
-});
-
-function mostrarJugadores(filtroPos = '', filtroDisp = '') {
-  const tabla = document.getElementById("tabla-jugadores");
-  tabla.innerHTML = "";
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
-  let contador = 0;
-
-  for (let email in users) {
-    const user = users[email];
-    if (filtroPos && !user.posicion?.toLowerCase().includes(filtroPos.toLowerCase())) continue;
-    if (filtroDisp && !user.disponibilidad?.toLowerCase().includes(filtroDisp.toLowerCase())) continue;
-
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td><img src="${user.imagen || ''}" width="60" style="border-radius:50%;"></td>
-      <td>${user.nombre || ''}</td>
-      <td>${user.email}</td>
-      <td>${user.posicion || ''}</td>
-      <td>${user.habilidades || ''}</td>
-      <td>${user.disponibilidad || ''}</td>
-      <td><button onclick="eliminarUsuario('${email}')">Eliminar</button></td>
-    `;
-    tabla.appendChild(row);
-    contador++;
-  }
-
-  document.getElementById("contador-jugadores").textContent = `Se han registrado ${contador} jugador(es).`;
-}

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
+  const users = JSON.parse(localStorage.getItem('users') || {});
   const userData = users[email] || {};
 
   // Cargar datos
@@ -13,24 +13,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('posicion').value = userData.posicion || '';
   document.getElementById('habilidades').value = userData.habilidades || '';
   document.getElementById('disponibilidad').value = userData.disponibilidad || '';
-  if (userData.imagen) {
-    document.getElementById('preview').src = userData.imagen;
-  }
+  document.getElementById('preview').src = userData.imagen || '';
 
+  // Subir imagen
   document.getElementById('imagen').addEventListener('change', function() {
     const file = this.files[0];
     if (file) {
+      document.getElementById('preview').alt = "Cargando...";
       const reader = new FileReader();
       reader.onload = function(e) {
         document.getElementById('preview').src = e.target.result;
-      }
+      };
       reader.readAsDataURL(file);
     }
   });
 
+  // Guardar cambios
   document.getElementById('perfil-form').addEventListener('submit', (e) => {
     e.preventDefault();
-
     const nombre = document.getElementById("nombre").value.trim();
     const posicion = document.getElementById("posicion").value.trim();
     const habilidades = document.getElementById("habilidades").value.trim();
@@ -42,17 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    users[email].nombre = nombre;
-    users[email].posicion = posicion;
-    users[email].habilidades = habilidades;
-    users[email].disponibilidad = disponibilidad;
-    users[email].imagen = imagen;
-
+    users[email] = { ...users[email], nombre, posicion, habilidades, disponibilidad, imagen };
     localStorage.setItem('users', JSON.stringify(users));
     alert("Perfil actualizado correctamente.");
     window.location.href = "jugadores.html";
   });
 
+  // Cerrar sesión
   document.getElementById('logout-btn').addEventListener('click', () => {
     localStorage.removeItem('loggedInUser');
     window.location.href = "login.html";

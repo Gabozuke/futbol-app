@@ -5,18 +5,20 @@
   <title>Login</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="login-body">
+<body>
   <div class="login-container">
-    <button class="toggle-mode" onclick="toggleTheme()" style="margin-bottom: 10px;">🌗 Modo Claro / Oscuro</button>
-    <h1>Iniciar Sesión</h1>
+    <img src="images/futbolapp-logo.png" alt="Logo FútbolApp" class="logo-app">
+    <h1>🔐 Iniciar Sesión</h1>
     <form id="login-form">
-      <input type="email" id="email-login" placeholder="Correo electrónico" required><br>
-      <input type="password" id="password-login" placeholder="Contraseña" required><br>
+      <input type="email" id="email-login" placeholder="Correo electrónico" required>
+      <input type="password" id="password-login" placeholder="Contraseña" required>
       <button type="submit">Entrar</button>
     </form>
-    <p>¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+    <div class="enlace-container">
+      <p class="enlace">¿No tienes cuenta? <a href="register.html">Regístrate</a></p>
+      <button onclick="location.href='index.html'" class="btn-back">🏠 Volver al Inicio</button>
+    </div>
   </div>
-  <script src="js/auth-local.js"></script>
-<script src="js/theme.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
